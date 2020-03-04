@@ -6,13 +6,6 @@ const bodyParser = require('body-parser');
 const errorHandler = require('_helpers/error-handler');
 const router = express.Router();
 
-const attackController = require('./controllers/attack');
-const armorController = require('./controllers/armor');
-const characterController = require('./controllers/character');
-const stuffController = require('./controllers/stuff');
-const userController = require('./controllers/user');
-const weaponController = require('./controllers/weapon');
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

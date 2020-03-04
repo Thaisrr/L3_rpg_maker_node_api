@@ -68,10 +68,16 @@ module.exports = {
 
     list(req, res) {
         return User.findAll({
-            include: [{
-                model: Character,
-                as: 'characters'
-            }],
+            include: [
+                {
+                model: Score,
+                as: 'scores'
+                },
+                {
+                    model: Skill,
+                    as: 'skills'
+                }
+            ],
         })
             .then((users) => res.status(200).send(users))
             .catch((error) => { res.status(400).send(error)});
@@ -79,10 +85,16 @@ module.exports = {
 
     getById(req, res)  {
         return User.getById(req.params.id, {
-            include: [{
-                model: Character,
-                as: 'characters'
-            }],
+            include: [
+                {
+                    model: Score,
+                    as: 'scores'
+                },
+                {
+                    model: Skill,
+                    as: 'skills'
+                }
+            ],
         })
             .then((user) => {
                 if (!user) {
@@ -102,7 +114,9 @@ module.exports = {
             pseudo: req.body.pseudo,
             mail: req.body.mail,
             password: bcrypt.hashSync(req.body.password, 8),
-            role: req.body.role
+            role: req.body.role,
+            skills: req.body.skills,
+            scores: req.body.scores
         })
             .then((user) => res.status(201).send(user))
             .catch((error) => res.status(400).send(error));
@@ -110,10 +124,16 @@ module.exports = {
 
     update(req, res) {
         return User.getById(req.params.id, {
-            include: [{
-                model: Character,
-                as: 'characters'
-            }],
+            include: [
+                {
+                    model: Score,
+                    as: 'scores'
+                },
+                {
+                    model: Skill,
+                    as: 'skills'
+                }
+            ],
         })
             .then(user => {
                 if (!user) {
@@ -129,7 +149,8 @@ module.exports = {
                     mail: req.body.mail || user.mail,
                     password: req.body.password || user.password,
                     role: req.body.role || user.role,
-                    characters: req.body.characters || user.characters
+                    scores: req.body.scores || user.scores,
+                    skills: req.body.skills || user.skills
                 })
                     .then((user) => res.status(201).send(user))
                     .catch((error) => res.status(400).send(error));

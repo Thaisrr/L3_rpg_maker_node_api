@@ -13,6 +13,13 @@ module.exports = {
     character,
     stuff,
     weapon,
-    user
+    user,
+    answer,
+    chapter,
+    course,
+    path,
+    question,
+    score,
+    skill
 };
 
