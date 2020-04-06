@@ -13,18 +13,18 @@ module.exports = {
 
     authenticate(req, res) {
         console.log('in authenticate !');
-    /*userService.authenticate(req.body)
-        .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
-        .catch(err => next(err)); */
+        userService.authenticate(req.body)
+            .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
+            .catch(err => next(err));
         User.findOne({
             where: {
                 pseudo: req.body.username
             }
         })
             .then(user => {
-                console.log('auth : check if user exist');
+                console.log('---------- auth : check if user exist');
                 if (!user) {
-                    console.log('user not found');
+                    console.log('-------- user not found');
                     return res.status(404).send({ message: "User Not found." });
                 }
 
@@ -60,6 +60,7 @@ module.exports = {
                    // roles: authorities,
                     accessToken: token
                 });
+                console.log('User Ok : ' + user.username);
             })
             .catch(err => {
                 res.status(500).send({ message: err.message });
